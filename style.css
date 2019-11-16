@@ -1,0 +1,17 @@
+.card-body {
+    margin-top: 50px;
+}
+
+p {
+    font-family: Arial, Helvetica, sans-serif;
+    color: blue;
+}
+
+.row {
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+#QUESTIONS {
+    font-size: 20px;
+}
