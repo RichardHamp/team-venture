@@ -10,6 +10,8 @@ var correctSynonym = "";
 var incorrectSynonyms = [];
 var currentScore = 0;
 var runningScore = 0;
+var queryUrlDictionary = "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" + correctWord + "?key=ce96d9e4-de5d-4795-8723-7c3340d395de"
+var queryUrlThesaurus = "https://words.bighugelabs.com/api/2/9670eec22c87195e1d58c8571bc3859c/" + correctWord + "/json"
 
 
 // Your web app's Firebase configuration>
@@ -86,7 +88,7 @@ document.getElementById("btnLogOut").addEventListener('click', e => {
 
 //Dictionary API
 $.ajax({
-    url: "https://www.dictionaryapi.com/api/v3/references/collegiate/json/voluminous?key=ce96d9e4-de5d-4795-8723-7c3340d395de",
+    url: queryUrlDictionary,
     method: "GET"}).then(function(response) {
         console.log(response);
 });
@@ -94,7 +96,7 @@ $.ajax({
 
 //Thesaurus API
 $.ajax({
-    url: "https://words.bighugelabs.com/api/2/9670eec22c87195e1d58c8571bc3859c/cat/json",
+    url: queryUrlThesaurus,
     method: "GET"}).then(function(response) {
         console.log(response);
 });      
