@@ -2,6 +2,16 @@ $(document).ready(function(){
 //hides initial game div
 $("#game").hide();
 
+//Define variables
+var wordDefinition = "";
+var correctWord = "";
+var incorrectWords = [];
+var correctSynonym = "";
+var incorrectSynonyms = [];
+var currentScore = 0;
+var runningScore = 0;
+
+
 // Your web app's Firebase configuration>
 var firebaseConfig = {
   apiKey: "AIzaSyD83Tk0z9YVwAtDNttLZqTeFkF7zP7EqnA",
