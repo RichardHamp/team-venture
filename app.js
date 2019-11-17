@@ -13,6 +13,7 @@ $(".start").on('click', function(){
   console.log(".click");
 });
 
+
 //Storing our dictionary API URL for a random definition
 
 //Render buttons
