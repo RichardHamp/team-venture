@@ -1,4 +1,4 @@
-
+$(document).ready(function(){
 //hides initial game div
 $("#game").hide();
 
@@ -54,12 +54,21 @@ document.getElementById("btnLogOut").addEventListener('click', e => {
   $("#authentication").show();
 })
 
-//Game start functions
-$("#start").on('click', function(){
+// $(document).ready(function(){
+  $("#question-block").hide();
+  $("#answer-block").hide();
+  $(".submit").hide();
+ //Game start functions
+ console.log("page is loaded");
+ $(".start").on('click', function(){
   //Hide the start button
-  $("#start").hide();
-  $("#QUESTIONS").show();
-});
+  $(".start").hide();
+  $("#question-block").show();
+  $("#answer-block").show();
+  $(".submit").show();
+  console.log(".click");
+ });
+
 
 //Storing our dictionary API URL for a random definition
 
@@ -80,4 +89,4 @@ $.ajax({
         console.log(response);
 });      
 
-
+})
