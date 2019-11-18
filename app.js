@@ -5,6 +5,8 @@ $("#game").hide();
 //Define variables
 var wordDefinition = "";
 var correctWord = "";
+var userChoiceDefinition = "";
+var userChoiceSynonym = "";
 var incorrectWords = [];
 var correctSynonym = "";
 var incorrectSynonyms = [];
