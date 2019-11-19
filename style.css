@@ -15,3 +15,12 @@ p {
 #QUESTIONS {
     font-size: 20px;
 }
+
+.jumbotron {
+    text-align: center;
+    margin: 50px;
+}
+
+.score {
+    margin: 50px;
+}

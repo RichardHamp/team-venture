@@ -52,6 +52,7 @@ $(document).ready(function () {
   //On authorized login, hides authentification div and shows app div
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
+      $("#navBarDiv").show();
       $("#gameDiv").show();
       $("#authentication").hide();
       console.log("login confirmed")
@@ -65,6 +66,7 @@ $(document).ready(function () {
     $("[id^=btnLogOut]").click(e => {
       firebase.auth().signOut();
       console.log('logged out')
+      $("#navBarDiv").hide();
       $("#gameDiv").hide();
       $("#highScoresDiv").hide();
       $("#playerScoreDiv").hide();
@@ -72,6 +74,7 @@ $(document).ready(function () {
     })
 
     $(".homeButton").on("click", function () {
+      $("#navBarDiv").show();
       $("#gameDiv").show();
       $("#playerScoreDiv").hide();
       $("#highScoresDiv").hide();
@@ -79,6 +82,7 @@ $(document).ready(function () {
     })
 
     $(".yourScore").on("click", function () {
+      $("#navBarDiv").show();
       $("#playerScoreDiv").show();
       $("#gameDiv").hide();
       $("#highScoresDiv").hide();
@@ -86,13 +90,14 @@ $(document).ready(function () {
     })
 
     $(".highScore").on("click", function () {
+      $("#navBarDiv").show();
       $("#gameDiv").hide();
       $("#playerScoreDiv").hide();
       $("#highScoresDiv").show();
       console.log("highScore");
     })
 
-  
+  $("#navBarDiv").hide();
   $("#question-block").hide();
   $("#answer-block").hide();
   $(".submit").hide();
