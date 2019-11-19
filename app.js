@@ -14,6 +14,8 @@ $(document).ready(function () {
   var runningScore = 0;
   var queryUrlDictionary = "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" + correctWord + "?key=ce96d9e4-de5d-4795-8723-7c3340d395de"
   var queryUrlThesaurus = "https://words.bighugelabs.com/api/2/9670eec22c87195e1d58c8571bc3859c/" + correctWord + "/json"
+  var userChoiceDefinition = "";
+  var userChoiceSynonym = "";
 
   // Your web app's Firebase configuration>
   var firebaseConfig = {
@@ -90,7 +92,7 @@ $(document).ready(function () {
       console.log("highScore");
     })
 
-  // $(document).ready(function(){
+  
   $("#question-block").hide();
   $("#answer-block").hide();
   $(".submit").hide();
