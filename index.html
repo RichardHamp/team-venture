@@ -9,46 +9,50 @@
   <link rel="stylesheet" href="reset.css">
   <!--CSS-->
   <link rel="stylesheet" href="style.css">
+  <!--JQuery-->
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
   <!--Bootstrap-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <!--JQuery-->
-  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <!--Firebase-->
   <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-auth.js"></script>
-
 </head>
 
-  <!--Game Div (normal game stuff goes in this one)-->
-
-  <div id="gameDiv">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <!--This is the navbar-->
+  <!--You are in the navBarDiv-->
+  <div id="navBarDiv">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="#"><strong>DEXICON</strong></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <button type="button" class="homeButton">Home <span class="sr-only">(current)</span></button>
+            <button type="button" class="btn btn-outline-light homeButton">Home<span class="sr-only">(current)</span></button>
           </li>
           <li class="nav-item">
-            <button type="button" class="yourScore">Your Score</button>
+            <button type="button" class="btn btn-outline-light yourScore">Your Score</button>
           </li>
           <li class="nav-item">
-              <button type="button" class="highScore">High Scores</button>
+              <button type="button" class="btn btn-outline-light highScore">High Scores</button>
           </li>
            <li class="nav-item">
-              <button type="button" id="btnLogOut">Log Out</button>
+              <button type="button" id="btnLogOut" class="btn btn-outline-light">Log Out</button>
           </li>
         </ul>
-      </div>
+        </div>
     </nav>
-    <p>You are in the Game Div</p>
+  </div>
   <!--Game goes here-->
-    <div class="wrapper">
+  <!--You are in the gameDiv-->
+  <div id="gameDiv">
+  <div class="jumbotron jumbotron-fluid">
+      <div class="container">
       <button type="button" class="btn btn-primary btn-lg start">Start</button>
       <div id="question-block">
         <p id="game-description">Choose the word that matches the definition.</p>
@@ -86,34 +90,12 @@
       <button type="button" class="btn btn-primary btn-lg submit">Submit answer</button>
     </div>
   </div>
+</div>
 
   <!-- Player Score Div -->
-
+  <!--You are in the Player Score Div-->
   <div id="playerScoreDiv">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <button type="button" class="homeButton">Home <span class="sr-only">(current)</span></button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="yourScore">Your Score</button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="highScore">High Scores</button>
-          </li>
-          <li class="nav-item">
-              <button type="button" id="btnLogOut2">Log Out</button>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <p>You are in the Player Score Div</p>
-    <div class="card">
+    <div class="container">
       <div class="score">
         Score Goes Here
       </div>
@@ -121,48 +103,47 @@
   </div>
 
   <!-- Top Scores Div -->
-
+  <!--You are in the Top Scores Div-->
   <div id="highScoresDiv">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <button type="button" class="homeButton">Home <span class="sr-only">(current)</span></button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="yourScore">Your Score</button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="highScore">High Scores</button>
-          </li>
-          <li class="nav-item">
-              <button type="button" id="btnLogOut3">Log Out</button>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
     <table class="table">
       <thead>
         <tr>
           <th scope="col">#</th>
           <th scope="col">User</th>
           <th scope="col">Score</th>
-          <p>You are in the Top Scores Div</p>
         </tr>
       </thead>
       <tbody>
-
+        <tr>
+          <th scope="row">1</th>
+          <td>Mad Max</td>
+          <td>1,000,000</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Second Top Scorer</td>
+          <td>750,000</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Third Top Scorer</td>
+          <td>300,000</td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>Fourth Top Scorer</td>
+          <td>12,000</td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>Fifth Top Scorer</td>
+          <td>200</td>
+        </tr>
       </tbody>
     </table>
   </div>
 
   <!--Login Div -->
-
   <div id="authentication">
     <div id="app">
       <input type="email" id="txtEmail" placeholder="Enter email" /> <br />
@@ -177,5 +158,4 @@
 
 </body>
 </div>
-
 </html>
