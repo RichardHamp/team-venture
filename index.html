@@ -6,58 +6,53 @@
   <title>Dexicon The Game</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!--Reset CSS-->
-  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="./assets/css/reset.css">
   <!--CSS-->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
   <!--Bootstrap-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <!--JQuery-->
-  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-    crossorigin="anonymous"></script>
-  <!--Firebase-->
-  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-auth.js"></script>
+
 
 </head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <button type="button" class="homeButton">Home <span class="sr-only">(current)</span></button>
+      </li>
+      <li class="nav-item">
+        <button type="button" class="yourScore">Your Score</button>
+      </li>
+      <li class="nav-item">
+        <button type="button" class="highScore">High Scores</button>
+      </li>
+      <li class="nav-item">
+        <button type="button" id="btnLogOut">Log Out</button>
+      </li>
+    </ul>
+  </div>
+</nav>
 
-  <!--Game Div (normal game stuff goes in this one)-->
+<!--Game Div (normal game stuff goes in this one)-->
 
-  <div id="gameDiv">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <button type="button" class="homeButton">Home <span class="sr-only">(current)</span></button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="yourScore">Your Score</button>
-          </li>
-          <li class="nav-item">
-              <button type="button" class="highScore">High Scores</button>
-          </li>
-           <li class="nav-item">
-              <button type="button" id="btnLogOut">Log Out</button>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <p>You are in the Game Div</p>
+<div id="gameDiv">
+  <p>You are in the Game Div</p>
   <!--Game goes here-->
-    <div class="wrapper">
-      <button type="button" class="btn btn-primary btn-lg start">Start</button>
-      <div id="question-block">
-        <p id="game-description">Choose the word that matches the definition.</p>
-        <div id="QUESTIONS">Randomly generated questions go here</div>
-      </div>
-      <div id="answer-block">
-        <div class="row">
-          <div class="col">
-            
+  <div class="wrapper">
+    <button type="button" class="btn btn-primary btn-lg start">Start</button>
+    <div id="question-block">
+      <p id="game-description">Choose the word that matches the definition.</p>
+      <div id="QUESTIONS">Randomly generated questions go here</div>
+    </div>
+    <div id="answer-block">
+      <div class="row">
+        <div class="col">
+
           <!---<input type="radio" name="Question" value="Word1"> Word 1 <br>
           </div>
           <br>
@@ -89,93 +84,107 @@
 
   <!-- Player Score Div -->
 
-  <div id="playerScoreDiv">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <button type="button" class="homeButton">Home <span class="sr-only">(current)</span></button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="yourScore">Your Score</button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="highScore">High Scores</button>
-          </li>
-          <li class="nav-item">
-              <button type="button" id="btnLogOut2">Log Out</button>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <p>You are in the Player Score Div</p>
-    <div class="card">
-      <div class="score">
-        Score Goes Here
+          <div id="playerScoreDiv">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item active">
+                    <button type="button" class="homeButton">Home <span class="sr-only">(current)</span></button>
+                  </li>
+                  <li class="nav-item">
+                    <button type="button" class="yourScore">Your Score</button>
+                  </li>
+                  <li class="nav-item">
+                    <button type="button" class="highScore">High Scores</button>
+                  </li>
+                  <li class="nav-item">
+                    <button type="button" id="btnLogOut2">Log Out</button>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+            <p>You are in the Player Score Div</p>
+            <div class="card">
+              <div class="score">
+                Score Goes Here
+              </div>
+            </div>
+          </div>
+
+          <!-- Top Scores Div -->
+
+          <div id="highScoresDiv">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item active">
+                    <button type="button" class="homeButton">Home <span class="sr-only">(current)</span></button>
+                  </li>
+                  <li class="nav-item">
+                    <button type="button" class="yourScore">Your Score</button>
+                  </li>
+                  <li class="nav-item">
+                    <button type="button" class="highScore">High Scores</button>
+                  </li>
+                  <li class="nav-item">
+                    <button type="button" id="btnLogOut3">Log Out</button>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">User</th>
+                  <th scope="col">Score</th>
+                  <p>You are in the Top Scores Div</p>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Top Scores Div -->
+<!--Login Div -->
 
-  <div id="highScoresDiv">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <button type="button" class="homeButton">Home <span class="sr-only">(current)</span></button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="yourScore">Your Score</button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="highScore">High Scores</button>
-          </li>
-          <li class="nav-item">
-              <button type="button" id="btnLogOut3">Log Out</button>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">User</th>
-          <th scope="col">Score</th>
-          <p>You are in the Top Scores Div</p>
-        </tr>
-      </thead>
-      <tbody>
-
-      </tbody>
-    </table>
+<div id="authentication">
+  <div id="app">
+    <input type="email" id="txtEmail" placeholder="Enter email" /> <br />
+    <input type="password" id="txtPassword" placeholder="Enter password" /><br />
+    <button id="btnLogin">Log in</button>
+    <button id="btnSignUp">Sign Up</button>
   </div>
+</div>
+<div id="results"></div>
 
-  <!--Login Div -->
-
-  <div id="authentication">
-    <div id="app">
-      <input type="email" id="txtEmail" placeholder="Enter email" /> <br />
-      <input type="password" id="txtPassword" placeholder="Enter password" /><br />
-      <button id="btnLogin">Log in</button>
-      <button id="btnSignUp">Sign Up</button>
-    </div>
-    <div id="results"></div>
-
-    <!--Javascript-->
-    <script src="app.js" type="text/javascript"></script>
+<!--Javascript-->
+<script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+<!--JQuery-->
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<!--Firebase-->
+<script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-auth.js"></script>
+<script src="./assets/js/firebase.js" type="text/javascript"></script>
+<script src="./assets/js/words.js" type="text/javascript"></script>
+<script src="./assets/js/app.js" type="text/javascript"></script>
 
 </body>
-</div>
 
 </html>
