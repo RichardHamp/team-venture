@@ -42,7 +42,7 @@ var database = firebase.database();
 
 // Creates hideAll function
 function hideAll() {
-    $("#navBarDiv, #highScoresDiv, #gameDiv, #playerScoreDiv, #authentication, #question-block, #answer-block, #startButton, .submit").hide();
+    $("#navBarDiv, #highScoresDiv, .score, #gameDiv, #playerWordsDiv, #authentication, #question-block, #answer-block, #startButton, .submit").hide();
 }
 
 hideAll();
@@ -81,7 +81,6 @@ function LoadRandomWords() {
             }
         }).then(function (response) {
             console.log("WORDSAPI", response)
-            var word = response.word;
             if (!randomWordList.includes(word)) {
                 randomWordList.push(word);
                 //try to have no space
@@ -107,7 +106,6 @@ $(document).ready(function () {
         promise.catch(e => { console.log(error.message) })
     })
 
-    userId = "";
     //On authorized login, hides authentification div and shows app div
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -133,15 +131,21 @@ $(document).ready(function () {
         });
     })
 
-   //Start Game Function
-   $(".start").on('click', StartGame);
-   function StartGame() {
-       hideAll();
-       $("#gameDiv, #question-block, #answer-block, #navBarDiv, #questions").show();
-       $("#startButton").hide();
-       QueryWord(GetRandomWord(randomWordList));
-       nextWord();
-   }
+
+    //Start Game Function
+    $(".start").on('click', StartGame);
+    function StartGame() {
+        hideAll();
+        $("#gameDiv, #question-block, #answer-block, #navBarDiv, #questions, .score").show();
+        $("#startButton").hide();
+        QueryWord(GetRandomWord(randomWordList));
+        nextWord();
+    }
+
+    function GetRandomWord(arr) {
+        return arr[Math.floor(Math.random() * arr.length)]
+    }
+
 
     function QueryWord(word) {
         console.log("QueryWord", word)
@@ -203,18 +207,14 @@ $(document).ready(function () {
         hideAll();
         $("#gameDiv, #navBarDiv, #startButton").show();
     })
-    $(".yourScore").on("click", function () {
+    $(".yourWords").on("click", function () {
         hideAll();
-        $("#playerScoreDiv, #navBarDiv").show();
+        $("#playerWordsDiv, #navBarDiv").show();
     })
     $(".highScore").on("click", function () {
         hideAll();
         $("#highScoresDiv, #navBarDiv").show();
     })
-
-    //  function updateScore () {
-
-    //  }
 
     //Game play function
     function displayDefinition() {
@@ -242,11 +242,12 @@ $(document).ready(function () {
             chosenAnswerDefinition = $(this).attr("value");
             if (chosenAnswerDefinition === choice.answerDef) {
                 alert("You got it right");
-                currentScore++;
-                updateScore();
+                i=choice.answerDef
+                console.log(choice.answerDef)
+                updateScore(i);
                 $("#answer-block").empty();
                 for (var j = 0; j < choice.synonymOptions.length; j++) {
-                    $("#question-block").html("Choose the word's synonym");
+                    $("#question-block").html("Choose the synonym of '" + i + "'");
                     userChoiceSynonym = $("<button>");
                     userChoiceSynonym.addClass("synonym-choice");
                     userChoiceSynonym.html(choice.synonymOptions[j]);
@@ -262,6 +263,15 @@ $(document).ready(function () {
         });
     }
 
+    // console.log(word);
+    function updateScore (i) {
+        currentScore++;
+        console.log(i)
+           $(".words").append("<tr><td>" + "</td><td>" + i + "</td></tr>");
+           $(".score").text(currentScore);
+           console.log(currentScore);
+           }
+
     //Function to move to the next word
     function nextWord() {
         $("#answer-block").empty();
@@ -274,9 +284,9 @@ $(document).ready(function () {
         $(".synonym-choice").on("click", function () {
             userChoiceSynonym = $(this).attr("value");
             if (userChoiceSynonym === choice.answerSyn) {
+                i=userChoiceSynonym;
                 alert("Correct");
-                currentScore++;
-                updateScore();
+                updateScore(i);
                 nextWord();
             }
             else {
