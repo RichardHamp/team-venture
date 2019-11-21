@@ -49,6 +49,7 @@ hideAll();
 
 //Global Variables
 var wordDefinition = "";
+var word;
 var correctWord = "";
 var incorrectWords = [];
 var correctSynonym = "";
@@ -132,19 +133,15 @@ $(document).ready(function () {
         });
     })
 
-    //Start Game Function
-    $(".start").on('click', StartGame);
-    function StartGame() {
-        hideAll();
-        $("#gameDiv, #question-block, #answer-block, #navBarDiv, #questions").show();
-        $("#startButton").hide();
-        QueryWord(GetRandomWord(randomWordList));
-        nextWord();
-    }
-
-    function GetRandomWord(arr) {
-        return arr[Math.floor(Math.random() * arr.length)]
-    }
+   //Start Game Function
+   $(".start").on('click', StartGame);
+   function StartGame() {
+       hideAll();
+       $("#gameDiv, #question-block, #answer-block, #navBarDiv, #questions").show();
+       $("#startButton").hide();
+       QueryWord(GetRandomWord(randomWordList));
+       nextWord();
+   }
 
     function QueryWord(word) {
         console.log("QueryWord", word)
@@ -172,6 +169,12 @@ $(document).ready(function () {
         //        console.log("Thesauras ERROR")
         //      });
     }
+
+     
+  
+      function GetRandomWord(arr) {
+          return arr[Math.floor(Math.random() * arr.length)]
+      }
 
     //Sign Up--pushes user information to Firebase database
     document.getElementById("btnSignUp").addEventListener('click', e => {
@@ -216,17 +219,18 @@ $(document).ready(function () {
     //Game play function
     function displayDefinition() {
         //Chooses random definition from the object array
-        list = Math.floor(Math.random() * words.length);
-        choice = words[list];
-        console.log(choice);
-        $("#question-block").text(choice.definition);
-        for (var i = 0; i < choice.wordOptions.length; i++) {
+        //list = Math.floor(Math.random() * words.length);
+        //choice = words[list];
+        console.log("this is word" + (GetRandomWord(randomWordList)));
+        console.log("word " + QueryWord(word));
+        $("#question-block").text("test " + GetRandomWord(randomWordList));
+        for (var i = 0; i < GetRandomWord(randomWordList).length; i++) {
             //Create a radio button
             userChoiceDefinition = $("<button>");
             userChoiceDefinition.addClass("answer-choice");
             //Update html with the word options to choose from
-            userChoiceDefinition.html(choice.wordOptions[i]);
-            userChoiceDefinition.attr("value", choice.wordOptions[i]);
+            userChoiceDefinition.html(GetRandomWord(randomWordList));
+            userChoiceDefinition.attr("value", GetRandomWord(randomWordList));
             $("#answer-block").append(userChoiceDefinition);
             console.log(userChoiceDefinition);
         }
