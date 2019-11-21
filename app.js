@@ -145,7 +145,6 @@ firebase.auth().onAuthStateChanged(user => {
         return arr[Math.floor(Math.random() * arr.length)]
     }
 
-
     function QueryWord(word) {
         console.log("QueryWord", word)
         var queryUrlDictionary = "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" + word + "?key=ce96d9e4-de5d-4795-8723-7c3340d395de";
