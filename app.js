@@ -140,6 +140,7 @@ firebase.auth().onAuthStateChanged(user => {
         $("#gameDiv, #question-block, #answer-block, #navBarDiv, #questions").show();
         $("#startButton").hide();
         QueryWord(GetRandomWord(randomWordList));
+        nextWord();
     }
     function GetRandomWord(arr) {
         return arr[Math.floor(Math.random() * arr.length)]

@@ -62,7 +62,7 @@
   <button id="testButton">Test Here</button>
   <!--You are in the gameDiv-->
   <div id="gameDiv">
-    <div class="jumbotron jumbotron-fluid">
+    <div class="jumbotron jumbotron-fluid" id="homePageJumbotron">
       <div class="container">
         <button type="button" id="startButton" class="btn btn-primary btn-lg start">Start</button>
         <div id="question-block">
@@ -83,10 +83,12 @@
   <!-- Player Score Div -->
   <!--You are in the Player Score Div-->
   <div id="playerScoreDiv">
-    <div class="container">
+    <div class="jumbotron jumbotron-fluid">
+    <div class="container" id="scoreDivContainer">
       <div class="score">
         Score Goes Here
       </div>
+    </div>
     </div>
   </div>
 
@@ -133,6 +135,8 @@
 
   <!--Login Div -->
   <div id="authentication">
+    <div class="jumbotron jumbotron-fluid">
+    <div class="container">
     <div id="app">
       <input type="email" id="txtEmail" placeholder="Enter email" /> <br />
       <input type="password" id="txtPassword" placeholder="Enter password" /><br />
@@ -140,6 +144,8 @@
       <button id="btnSignUp">Sign Up</button>
     </div>
     <div id="results"></div>
+  </div>
+  </div>
   </div>
 
   <!--Javascript-->

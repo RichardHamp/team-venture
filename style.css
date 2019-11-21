@@ -16,11 +16,23 @@ p {
     font-size: 20px;
 }
 
-.jumbotron {
+#homePageJumbotron {
     text-align: center;
     margin: 50px;
+    padding: 50px;
+}
+
+#scoreDivContainer {
+    margin: 50px;
+    text-align: left;
 }
 
 .score {
     margin: 50px;
+}
+
+.jumbotron {
+    margin: 50px;
+    text-align: center;
+    color: blue;
 }
