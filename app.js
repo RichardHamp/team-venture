@@ -47,8 +47,6 @@ function hideAll() {
 
 hideAll();
 
-
-
 //Global Variables
 var wordDefinition = "";
 var correctWord = "";
@@ -93,32 +91,33 @@ function LoadRandomWords() {
         })
     }
 }
+
 $(document).ready(function () {
     var count = API_usage[moment().format("MM/DD")];
     if (count < 2000 && randomWordList.length < 100) {
         LoadRandomWords();
     }
 
-//Log in--checks user information against Firebase database
-document.getElementById("btnLogin").addEventListener('click', e => {
-    const email = document.getElementById("txtEmail").value;
-    const pass = document.getElementById("txtPassword").value;
-    const promise = firebase.auth().signInWithEmailAndPassword(email, pass);
-    promise.catch(e => { console.log(error.message) })
-})
+    //Log in--checks user information against Firebase database
+    document.getElementById("btnLogin").addEventListener('click', e => {
+        const email = document.getElementById("txtEmail").value;
+        const pass = document.getElementById("txtPassword").value;
+        const promise = firebase.auth().signInWithEmailAndPassword(email, pass);
+        promise.catch(e => { console.log(error.message) })
+    })
 
-userId = "";
-//On authorized login, hides authentification div and shows app div
-firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-        userId = user.uid;
-        console.log(user)
-        $("#navBarDiv, #gameDiv, #startButton").show();
-        $("#authentication").hide();
-    } else {
-        $("#authentication").show();
-    }
-})
+    userId = "";
+    //On authorized login, hides authentification div and shows app div
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            userId = user.uid;
+            console.log(user)
+            $("#navBarDiv, #gameDiv, #startButton").show();
+            $("#authentication").hide();
+        } else {
+            $("#authentication").show();
+        }
+    })
 
     //Sign Up--pushes user information to Firebase database
     document.getElementById("btnSignUp").addEventListener('click', e => {
@@ -140,7 +139,9 @@ firebase.auth().onAuthStateChanged(user => {
         $("#gameDiv, #question-block, #answer-block, #navBarDiv, #questions").show();
         $("#startButton").hide();
         QueryWord(GetRandomWord(randomWordList));
+        nextWord();
     }
+
     function GetRandomWord(arr) {
         return arr[Math.floor(Math.random() * arr.length)]
     }
