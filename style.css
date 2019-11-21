@@ -1,3 +1,9 @@
+#startButton {
+    font-size: 20px;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .card-body {
     margin-top: 50px;
 }
@@ -18,21 +24,49 @@ p {
 
 #homePageJumbotron {
     text-align: center;
-    margin: 50px;
-    padding: 50px;
+    margin: 25px 100px 25px 100px;
 }
 
 #scoreDivContainer {
-    margin: 50px;
+    margin: 20px 50px 20px 50px;
     text-align: left;
 }
 
-.score {
+.scoreTitle {
     margin: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-size: 17px;
 }
 
 .jumbotron {
-    margin: 50px;
-    text-align: center;
-    color: blue;
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: left;
+}
+
+#btnLogin {
+    margin-top: 15px;
+    margin-right: 5px;
+}
+
+#btnSignUp {
+    margin-top: 15px;
+    margin-left: 5px;
+}
+
+#txtEmail {
+    margin-bottom: 5px;
+}
+
+#tableHeader {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    color: white;
+}
+
+#table {
+    color: white;
+    font-size: 15px;
 }

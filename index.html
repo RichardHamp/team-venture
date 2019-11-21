@@ -62,9 +62,9 @@
   <button id="testButton">Test Here</button>
   <!--You are in the gameDiv-->
   <div id="gameDiv">
-    <div class="jumbotron jumbotron-fluid" id="homePageJumbotron">
+    <div class="jumbotron jumbotron-fluid" style="background: #33ABF9;" id="homePageJumbotron">
       <div class="container">
-        <button type="button" id="startButton" class="btn btn-primary btn-lg start">Start</button>
+        <button type="button" id="startButton" class="btn btn-outline-light start"><strong>START</strong></button>
         <div id="question-block">
           <p id="game-description">Choose the word that matches the definition.</p>
           <div id="questions">Randomly generated questions go here</div>
@@ -78,15 +78,19 @@
         </div>
       </div>
     </div>
+    </div>
+    </div>
+    </div>
+    </div>
   </div>
   
   <!-- Player Score Div -->
   <!--You are in the Player Score Div-->
   <div id="playerScoreDiv">
-    <div class="jumbotron jumbotron-fluid">
+    <div class="jumbotron jumbotron-fluid" style="background: #33ABF9;">
     <div class="container" id="scoreDivContainer">
       <div class="score">
-        Score Goes Here
+        <h1 class="scoreTitle">Score Goes Here</h1>
       </div>
     </div>
     </div>
@@ -95,15 +99,17 @@
   <!-- Top Scores Div -->
   <!--You are in the Top Scores Div-->
   <div id="highScoresDiv">
+    <div class="jumbotron jumbotron-fluid" style="background: #33ABF9;">
+    <div class="container">
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">User</th>
-          <th scope="col">Score</th>
+          <th id="tableHeader" scope="col"><strong>#</strong></th>
+          <th id="tableHeader" scope="col"><strong>User Name</strong></th>
+          <th id="tableHeader" scope="col"><strong>Total Score</strong></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="table">
         <tr>
           <th scope="row">1</th>
           <td>Mad Max</td>
@@ -131,17 +137,19 @@
         </tr>
       </tbody>
     </table>
+    </div>
+    </div>
   </div>
 
   <!--Login Div -->
   <div id="authentication">
-    <div class="jumbotron jumbotron-fluid">
+    <div class="jumbotron jumbotron-fluid" style="background: #2D64F5;">
     <div class="container">
     <div id="app">
       <input type="email" id="txtEmail" placeholder="Enter email" /> <br />
       <input type="password" id="txtPassword" placeholder="Enter password" /><br />
-      <button id="btnLogin">Log in</button>
-      <button id="btnSignUp">Sign Up</button>
+      <button id="btnLogin" class="btn btn-outline-light">Log in</button>
+      <button id="btnSignUp" class="btn btn-outline-light">Sign Up</button>
     </div>
     <div id="results"></div>
   </div>
