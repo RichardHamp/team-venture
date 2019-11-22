@@ -1,6 +1,14 @@
-const WORDS_API = "595RRMKI";
+const WORDS_API = "VGGWWD0A";
+
+function addScores() {
+    i = runningScore + currentScore;
+    database.ref('users/' + name).update({
+    score: i,
+    });
+}
 
 window.onbeforeunload = function (e) {
+    addScores();
     firebase.auth().signOut();
     name = "";
     currentScore = 0;
@@ -62,7 +70,7 @@ var incorrectWords = [];
 var correctSynonym = "";
 var incorrectSynonyms = [];
 var currentScore = 0;
-var runningScore = 0;
+var name = "";
 var userChoiceDefinition = "";
 var userChoiceSynonym = "";
 var wordOptions;
@@ -79,7 +87,7 @@ function LoadRandomWords() {
     for (var i = 0; i < 1; i++) {
         $.ajax({
 
-            url: "https://random-word-api.herokuapp.com/word?key=595RRMKI&number=100",
+            url: "https://random-word-api.herokuapp.com/word?key=VGGWWD0A&number=100",
             method: "GET",
             
             
@@ -120,6 +128,12 @@ $(document).ready(function () {
             console.log(name);
             $("#navBarDiv, #gameDiv, #startButton").show();
             $("#authentication").hide();
+            scoreAdd = firebase.database().ref('users/' + name + '/score');
+    scoreAdd.on('value', function(snapshot) {
+        runningScore= snapshot.val();
+        console.log(runningScore);
+      });
+            return(name);
         } else {
             $("#authentication").show();
         }
@@ -163,8 +177,6 @@ $(document).ready(function () {
         return arr[Math.floor(Math.random() * arr.length)]
     }
     
-
-
     function QueryWord(word) {
         console.log("QueryWord", word)
         var queryUrlDictionary = "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" + word + "?key=ce96d9e4-de5d-4795-8723-7c3340d395de";
@@ -175,6 +187,10 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (response) {
             console.log(response);
+            test = response[0];
+            wordDefinition = test.shortdef[0];
+            console.log(wordDefinition);
+            $("#question-block").text('Definition: "'+ wordDefinition + '"');
         })
             .catch(function (err) {
                 console.log("DICTIONARY ERROR")
@@ -212,8 +228,11 @@ $(document).ready(function () {
 
     //Navigation Buttons
     $("[id^=btnLogOut]").click(e => {
+        addScores();
         firebase.auth().signOut();
         hideAll();
+        name = "";
+        currentScore = 0;
         $("#authentication").show();
     })
     $(".homeButton").on("click", function () {
@@ -231,10 +250,12 @@ $(document).ready(function () {
 
     //Game play function
     function displayDefinition() {
-
-    
-       
         console.log("this is word" + (GetRandomWord(randomWordList)));
+
+
+        //definition goes here
+
+        
         console.log("word " + QueryWord(word));
         $("#question-block").text("test " + word);
         for (var i = 0; i < randomWordList.length; i++) {
@@ -321,12 +342,9 @@ $(document).ready(function () {
     }
 
     $("#testButton").on("click", function () {
-        currentScore++;
-        console.log(name);
-        testS = firebase.database().ref(name);
-        database.ref('users/' + name).update({
-            score: currentScore,
-        });
+        updateScore();
+        console.log(currentScore);
+        console.log(name)
     });
 })
 
@@ -335,10 +353,9 @@ var ref = database.ref('users');
 ref.on('value', gotData, errData);
 
 function gotData(data) {
-    console.log(data.val())
     var scores = data.val();
     var keys = Object.keys(scores);
-    console.log(keys);
+    console.log(scores)
     for (var i = 0; i < keys.length; i++) {
         var k = keys[i];
         var initials = scores[k].email;
@@ -347,10 +364,23 @@ function gotData(data) {
         var newContent = document.createTextNode(initials + ': ' + score);
         li.appendChild(newContent);
         $("#scorelist").append(li);
-        console.log(initials, score);
-        console.log(li)
     }
 }
+
+// firebase.auth().onAuthStateChanged(function(user) {
+//     if (user) {
+//         console.log(name);
+//     scoreAdd = firebase.database().ref('users/' + 'a@a' + '/score');
+//     scoreAdd.on('value', function(snapshot) {
+//         runningScore= snapshot.val();
+//         console.log(runningScore);
+//       });
+// } 
+
+// else {
+//     console.log("I'm in the login");
+//   }
+// });
 
 function errData(err) {
     console.log("error")
