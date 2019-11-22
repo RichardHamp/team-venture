@@ -1,6 +1,6 @@
 const WORDS_API = "2c641ac47amshde4fb7d34f243e5p1ea1dajsn860dafbf04af";
 
-window.onbeforeunload = function(e){
+window.onbeforeunload = function (e) {
     firebase.auth().signOut();
     name = "";
     currentScore = 0;
@@ -117,7 +117,7 @@ $(document).ready(function () {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             userId = user.uid;
-            umail=(user.email)
+            umail = (user.email)
             name = umail.substring(0, umail.lastIndexOf("."));
             console.log(name);
             $("#navBarDiv, #gameDiv, #startButton").show();
@@ -128,22 +128,22 @@ $(document).ready(function () {
     })
 
     //Sign Up--pushes user information to Firebase database
-    $("#btnSignUp").on('click', function (){
+    $("#btnSignUp").on('click', function () {
         firebase.auth().signOut();
         name = "";
         currentScore = 0;
         const email = document.getElementById("txtEmail").value;
         const pass = document.getElementById("txtPassword").value;
-        name  = email.substring(0, email.lastIndexOf("."));
+        name = email.substring(0, email.lastIndexOf("."));
         console.log(name)
-            database.ref('users/' + name).set({
-                email:email,
-                score:0,
-                words: "placeholder",
-                dateAdded: firebase.database.ServerValue.TIMESTAMP,
+        database.ref('users/' + name).set({
+            email: email,
+            score: 0,
+            words: "placeholder",
+            dateAdded: firebase.database.ServerValue.TIMESTAMP,
         });
-        
-     
+
+
         firebase.auth().createUserWithEmailAndPassword(email, pass).catch(function (error) {
             console.log(error.message);
         });
@@ -193,11 +193,11 @@ $(document).ready(function () {
         //      });
     }
 
-     
-  
-      function GetRandomWord(arr) {
-          return arr[Math.floor(Math.random() * arr.length)]
-      }
+
+
+    function GetRandomWord(arr) {
+        return arr[Math.floor(Math.random() * arr.length)]
+    }
 
     //Sign Up--pushes user information to Firebase database
     document.getElementById("btnSignUp").addEventListener('click', e => {
@@ -261,7 +261,7 @@ $(document).ready(function () {
             chosenAnswerDefinition = $(this).attr("value");
             if (chosenAnswerDefinition === choice.answerDef) {
                 alert("You got it right");
-                i=choice.answerDef
+                i = choice.answerDef
                 console.log(choice.answerDef)
                 updateScore(i);
                 $("#answer-block").empty();
@@ -283,13 +283,13 @@ $(document).ready(function () {
     }
 
     // console.log(word);
-    function updateScore (i) {
+    function updateScore(i) {
         currentScore++;
         console.log(i)
-           $(".words").append("<tr><td>" + "</td><td>" + i + "</td></tr>");
-           $(".score").text(currentScore);
-           console.log(currentScore);
-           }
+        $(".words").append("<tr><td>" + "</td><td>" + i + "</td></tr>");
+        $(".score").text(currentScore);
+        console.log(currentScore);
+    }
 
     //Function to move to the next word
     function nextWord() {
@@ -303,7 +303,7 @@ $(document).ready(function () {
         $(".synonym-choice").on("click", function () {
             userChoiceSynonym = $(this).attr("value");
             if (userChoiceSynonym === choice.answerSyn) {
-                i=userChoiceSynonym;
+                i = userChoiceSynonym;
                 alert("Correct");
                 updateScore(i);
                 nextWord();
@@ -319,10 +319,35 @@ $(document).ready(function () {
         currentScore++;
         console.log(name);
         testS = firebase.database().ref(name);
-        console.log(testS);
         database.ref('users/' + name).update({
-        score: currentScore,
+            score: currentScore,
         });
     });
-    
 })
+
+//Populates User Scores
+var ref = database.ref('users');
+ref.on('value', gotData, errData);
+
+function gotData(data) {
+    console.log(data.val())
+    var scores = data.val();
+    var keys = Object.keys(scores);
+    console.log(keys);
+    for (var i = 0; i < keys.length; i++) {
+        var k = keys[i];
+        var initials = scores[k].email;
+        var score = scores[k].score;
+        var li = document.createElement('li');
+        var newContent = document.createTextNode(initials + ': ' + score);
+        li.appendChild(newContent);
+        $("#scorelist").append(li);
+        console.log(initials, score);
+        console.log(li)
+    }
+}
+
+function errData(err) {
+    console.log("error")
+    console.log(err)
+}
