@@ -1,4 +1,4 @@
-const WORDS_API = "2c641ac47amshde4fb7d34f243e5p1ea1dajsn860dafbf04af";
+const WORDS_API = "595RRMKI";
 
 window.onbeforeunload = function(e){
     firebase.auth().signOut();
@@ -67,33 +67,28 @@ var userChoiceDefinition = "";
 var userChoiceSynonym = "";
 var list;
 var choice;
-var API_usage = JSON.parse(localStorage.getItem("wordsAPI")) || { [moment().format("MM/DD")]: 0 };
-var randomWordList = JSON.parse(localStorage.getItem("wordList")) || [];
+var API_usage = JSON.parse(sessionStorage.getItem("wordsAPI")) || { [moment().format("MM/DD")]: 0 };
+var randomWordList = JSON.parse(sessionStorage.getItem("wordList")) || [];
 console.log(randomWordList)
 
 //Creates an Array of 100 Random Words
 function LoadRandomWords() {
     console.log("USING WORDS_API!")
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < 1; i++) {
         $.ajax({
 
-            url: "https://wordsapiv1.p.rapidapi.com/words/",
+            url: "https://random-word-api.herokuapp.com/word?key=595RRMKI&number=100",
             method: "GET",
-            data: {
-                "random": "true"
-            },
-            headers: {
-                "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-                "x-rapidapi-key": WORDS_API
-            }
+            
+            
         }).then(function (response) {
             console.log("WORDSAPI", response)
             if (!randomWordList.includes(word)) {
                 randomWordList.push(word);
-                //try to have no space
+                
                 API_usage[moment().format("MM/DD")]++;
-                localStorage.setItem("wordsAPI", JSON.stringify(API_usage));
-                localStorage.setItem("wordList", JSON.stringify(randomWordList));
+                sessionStorage.setItem("wordsAPI", JSON.stringify(API_usage));
+                sessionStorage.setItem("wordList", JSON.stringify(randomWordList));
             }
         })
     }
