@@ -1,5 +1,11 @@
 const WORDS_API = "2c641ac47amshde4fb7d34f243e5p1ea1dajsn860dafbf04af";
 
+window.onbeforeunload = function(e){
+    firebase.auth().signOut();
+    name = "";
+    currentScore = 0;
+}
+
 //Define variables
 var words = [
     {
@@ -48,6 +54,7 @@ function hideAll() {
 hideAll();
 
 //Global Variables
+var currentUser = "";
 var wordDefinition = "";
 var word;
 var correctWord = "";
@@ -110,7 +117,9 @@ $(document).ready(function () {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             userId = user.uid;
-            console.log(user)
+            umail=(user.email)
+            name = umail.substring(0, umail.lastIndexOf("."));
+            console.log(name);
             $("#navBarDiv, #gameDiv, #startButton").show();
             $("#authentication").hide();
         } else {
@@ -119,16 +128,26 @@ $(document).ready(function () {
     })
 
     //Sign Up--pushes user information to Firebase database
-    document.getElementById("btnSignUp").addEventListener('click', e => {
+    $("#btnSignUp").on('click', function (){
+        firebase.auth().signOut();
+        name = "";
+        currentScore = 0;
         const email = document.getElementById("txtEmail").value;
         const pass = document.getElementById("txtPassword").value;
-        database.ref().push({
-            email: email,
-            dateAdded: firebase.database.ServerValue.TIMESTAMP,
+        name  = email.substring(0, email.lastIndexOf("."));
+        console.log(name)
+            database.ref('users/' + name).set({
+                email:email,
+                score:0,
+                words: "placeholder",
+                dateAdded: firebase.database.ServerValue.TIMESTAMP,
         });
+        
+     
         firebase.auth().createUserWithEmailAndPassword(email, pass).catch(function (error) {
             console.log(error.message);
         });
+        console.log(email);
     })
 
 
@@ -298,8 +317,12 @@ $(document).ready(function () {
 
     $("#testButton").on("click", function () {
         currentScore++;
-        database.ref(userId).set({
-            score: currentScore,
+        console.log(name);
+        testS = firebase.database().ref(name);
+        console.log(testS);
+        database.ref('users/' + name).update({
+        score: currentScore,
         });
     });
+    
 })
