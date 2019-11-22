@@ -10,7 +10,7 @@ window.onbeforeunload = function(e){
 var words = [
     {
         definition: "a carnivorous mammal (Felis catus) long domesticated as a pet and for catching rats and mice",
-        wordOptions: ["dog", "cat", "kangaroo", "rooster", "koala"],
+        //wordOptions: ["dog", "cat", "kangaroo", "rooster", "koala"],
         answerDef: "cat",
         synonymOptions: ["kitten", "monkey", "zubat", "person", "giraffe"],
         answerSyn: "kitten"
@@ -65,11 +65,13 @@ var currentScore = 0;
 var runningScore = 0;
 var userChoiceDefinition = "";
 var userChoiceSynonym = "";
+var wordOptions;
 var list;
 var choice;
 var API_usage = JSON.parse(sessionStorage.getItem("wordsAPI")) || { [moment().format("MM/DD")]: 0 };
 var randomWordList = JSON.parse(sessionStorage.getItem("wordList")) || [];
-console.log(randomWordList)
+console.log("this is randomWordList " + randomWordList);
+
 
 //Creates an Array of 100 Random Words
 function LoadRandomWords() {
@@ -83,6 +85,7 @@ function LoadRandomWords() {
             
         }).then(function (response) {
             console.log("WORDSAPI", response)
+            word = response[Math.floor(Math.random() * response.length)];
             if (!randomWordList.includes(word)) {
                 randomWordList.push(word);
                 
@@ -159,6 +162,7 @@ $(document).ready(function () {
     function GetRandomWord(arr) {
         return arr[Math.floor(Math.random() * arr.length)]
     }
+    
 
 
     function QueryWord(word) {
@@ -187,12 +191,6 @@ $(document).ready(function () {
         //        console.log("Thesauras ERROR")
         //      });
     }
-
-     
-  
-      function GetRandomWord(arr) {
-          return arr[Math.floor(Math.random() * arr.length)]
-      }
 
     //Sign Up--pushes user information to Firebase database
     document.getElementById("btnSignUp").addEventListener('click', e => {
@@ -232,23 +230,34 @@ $(document).ready(function () {
 
     //Game play function
     function displayDefinition() {
-        //Chooses random definition from the object array
-        //list = Math.floor(Math.random() * words.length);
-        //choice = words[list];
+
+    
+       
         console.log("this is word" + (GetRandomWord(randomWordList)));
         console.log("word " + QueryWord(word));
-        $("#question-block").text("test " + GetRandomWord(randomWordList));
-        for (var i = 0; i < GetRandomWord(randomWordList).length; i++) {
-            //Create a radio button
+        $("#question-block").text("test " + word);
+        for (var i = 0; i < randomWordList.length; i++) {
+            //Create a button for the correct answer
+            if(i < 1){
             userChoiceDefinition = $("<button>");
             userChoiceDefinition.addClass("answer-choice");
             //Update html with the word options to choose from
-            userChoiceDefinition.html(GetRandomWord(randomWordList));
-            userChoiceDefinition.attr("value", GetRandomWord(randomWordList));
+            userChoiceDefinition.html(word);    
+            userChoiceDefinition.attr("value", word);
             $("#answer-block").append(userChoiceDefinition);
             console.log(userChoiceDefinition);
+        }}
+            for(var i = 0; i < randomWordList.length; i++){
+                if(i < 4){
+                console.log("1");
+                wordOptions = $("<button>");
+                wordOptions.addClass("word-options");
+                wordOptions.html(GetRandomWord(randomWordList))
+                wordOptions.attr("value", wordOptions);
+                $("#answer-block").append(wordOptions);
+            }}
         }
-    }
+    
 
     //Function for the answer that's clicked on, checks answer
     function checkAnswer() {
