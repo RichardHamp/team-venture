@@ -1,4 +1,4 @@
-const WORDS_API = "VGGWWD0A";
+const WORDS_API = "595RRMKI";
 
 window.onbeforeunload = function (e) {
     firebase.auth().signOut();
@@ -79,7 +79,7 @@ function LoadRandomWords() {
     for (var i = 0; i < 1; i++) {
         $.ajax({
 
-            url: "https://random-word-api.herokuapp.com/word?key=VGGWWD0A&number=100",
+            url: "https://random-word-api.herokuapp.com/word?key=595RRMKI&number=100",
             method: "GET",
             
             
@@ -175,17 +175,6 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (response) {
             console.log(response);
-            test = response[0];
-            wordDefinition = test.shortdef[0];
-            console.log(wordDefinition);
-            $("#question-block").text('Definition: "'+ wordDefinition + '"');
-
-// JSONArray lexicalEntriesArr = resultsArr.getJSONObject(0).getJSONArray("lexicalEntries");
-// JSONArray entriesArr = shortdef.getJSONObject(0).getJSONArray("entries");
-// JSONArray sensesArr = entriesArr.getJSONObject(0).getJSONArray("senses");
-// JSONArray definitionsArr = sensesArr.getJSONObject(0).getJSONArray("definitions");
-
-// String definition = definitionsArr.toString();
         })
             .catch(function (err) {
                 console.log("DICTIONARY ERROR")
@@ -242,12 +231,10 @@ $(document).ready(function () {
 
     //Game play function
     function displayDefinition() {
+
+    
+       
         console.log("this is word" + (GetRandomWord(randomWordList)));
-
-
-        //definition goes here
-
-        
         console.log("word " + QueryWord(word));
         $("#question-block").text("test " + word);
         for (var i = 0; i < randomWordList.length; i++) {
@@ -348,8 +335,10 @@ var ref = database.ref('users');
 ref.on('value', gotData, errData);
 
 function gotData(data) {
+    console.log(data.val())
     var scores = data.val();
     var keys = Object.keys(scores);
+    console.log(keys);
     for (var i = 0; i < keys.length; i++) {
         var k = keys[i];
         var initials = scores[k].email;
@@ -358,6 +347,8 @@ function gotData(data) {
         var newContent = document.createTextNode(initials + ': ' + score);
         li.appendChild(newContent);
         $("#scorelist").append(li);
+        console.log(initials, score);
+        console.log(li)
     }
 }
 
