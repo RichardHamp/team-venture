@@ -256,21 +256,21 @@ $(document).ready(function () {
         //definition goes here
 
         
-        console.log("word " + QueryWord(word));
-        $("#question-block").text("test " + word);
-        for (var i = 0; i < randomWordList.length; i++) {
-            //Create a button for the correct answer
-            if(i < 1){
-            userChoiceDefinition = $("<button>");
-            userChoiceDefinition.addClass("answer-choice");
-            //Update html with the word options to choose from
-            userChoiceDefinition.html(word);    
-            userChoiceDefinition.attr("value", word);
-            $("#answer-block").append(userChoiceDefinition);
-            console.log(userChoiceDefinition);
-        }}
-            for(var i = 0; i < randomWordList.length; i++){
-                if(i < 4){
+        // console.log("word " + QueryWord(word));
+        // $("#question-block").text("test " + word);
+        // for (var i = 0; i < randomWordList.length; i++) {
+        //     //Create a button for the correct answer
+        //     if(i < 1){
+        //     userChoiceDefinition = $("<button>");
+        //     userChoiceDefinition.addClass("answer-choice");
+        //     //Update html with the word options to choose from
+        //     userChoiceDefinition.html(word);    
+        //     userChoiceDefinition.attr("value", word);
+        //     $("#answer-block").append(userChoiceDefinition);
+        //     console.log(userChoiceDefinition);
+        // }}
+            for(var i = 0; i < 5; i++){
+                if(i < 5){
                 console.log("1");
                 wordOptions = $("<button>");
                 wordOptions.addClass("word-options");
