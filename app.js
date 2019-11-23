@@ -259,7 +259,7 @@ $(document).ready(function () {
     function updateScore(i) {
         currentScore++;
         $(".words").append("<tr><td>" + "</td><td>" + i + "</td></tr>");
-        $(".score").text(currentScore);
+        $(".score").text("Current Score: " + currentScore);
     }
 
     //Function to move to the next word
