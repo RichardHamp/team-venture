@@ -5,12 +5,10 @@ const WORDS_API = "VGGWWD0A";
 var word;
 var currentScore = 0;
 var name = "";
-var userChoiceSynonym = "";
 var answerArray = [];
 var answer = "";
 var wordOptions;
 var answerChosen;
-var choice;
 var API_usage = JSON.parse(sessionStorage.getItem("wordsAPI")) || { [moment().format("MM/DD")]: 0 };
 var randomWordList = JSON.parse(sessionStorage.getItem("wordList")) || [];
 
@@ -58,13 +56,7 @@ var database = firebase.database();
 
 //Creates an Array of 100 Random Words
 function LoadRandomWords() {
-    wordOptions="";
-        // answerChosen="";
-        // wordDefinition="";
-        // answer="";
-        // i='';
-        // word="";
-        // answerArray=[];  
+    wordOptions=""; 
     for (var i = 0; i < 1; i++) {
         $.ajax({
             url: "https://random-word-api.herokuapp.com/word?key=VGGWWD0A&number=100",
@@ -239,17 +231,13 @@ $(document).ready(function () {
         $(".word-options").on("click", function () {
             wordOptions = $(this).attr("value");
             answerChosen = $(this).attr("value");
-            console.log("answer chosen" + answerChosen);
-            console.log("answer" + answer);
             if (answerChosen === answer) {
-                alert("You got it right");
                 i = answer;
                 updateScore(i);
                 $("#answer-block").empty();
                 nextWord();
                 }
                 else{
-                    alert("you got it wrong");
                 nextWord();
             }
             });
@@ -273,22 +261,6 @@ $(document).ready(function () {
     }
 })
 
-    //Checking synonym answer
-    function checkSynonym() {
-        $(".synonym-choice").on("click", function () {
-            userChoiceSynonym = $(this).attr("value");
-            if (userChoiceSynonym === choice.answerSyn) {
-                i = userChoiceSynonym;
-                alert("Correct");
-                updateScore(i);
-                nextWord();
-            }
-            else {
-                alert("wrong");
-                nextWord();
-            }
-        })
-    }
 
 // Get the modal
 var modal = document.getElementById("myModal");

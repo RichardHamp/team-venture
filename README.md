@@ -1,8 +1,7 @@
-# we are team-venture
-
-# this is DEXICON!
+# DEXICON - project 1
 
 ## About
+
 This is our Project-1! Our application is a word-play game that helps users expand their vocabulary or test their knowledge on the definitions of words.
 
 Motivation: We came up with this idea because we wanted to provide users with a fun, interactive way to test their vocabulary knowledge.
@@ -25,6 +24,4 @@ Here is the link to our project --> LINK GOES HERE
 8. APIs
 9. JSON
 
-## Contributors
-Nathaniel Anderson, Brittany Huber, Richard Hamp, and Bailee Manzer
 
