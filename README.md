@@ -24,5 +24,4 @@ Here is the link to our project --> LINK GOES HERE
 8. APIs
 9. JSON
 
-## Credits
-Nathaniel Anderson, Brittany Huber, Richard Hamp, and Bailee Manzer
+
