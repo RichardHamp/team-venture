@@ -7,7 +7,9 @@ var currentScore = 0;
 var name = "";
 var userChoiceSynonym = "";
 var answerArray = [];
-var answer = ""
+var answer = "";
+var wordOptions;
+var answerChosen;
 var choice;
 var API_usage = JSON.parse(sessionStorage.getItem("wordsAPI")) || { [moment().format("MM/DD")]: 0 };
 var randomWordList = JSON.parse(sessionStorage.getItem("wordList")) || [];
@@ -209,41 +211,39 @@ $(document).ready(function () {
             if (i < 5) {
                 wordOptions = $("<button>");
                 wordOptions.addClass("word-options");
-                wordOptions.html(answerArray[i]);
-                wordOptions.attr("value", wordOptions);
+                wordOptions.text(answerArray[i]);
+                wordOptions.attr("value", answerArray[i]);
                 wordOptions.attr("id", "button" + i);
                 $("#answer-block").append(wordOptions);
             }
         }
         j = (Math.floor(Math.random() * 5));
-        $("#button" + j).text(answer);
+        answerChosen = $("#button" + j).text(answer)
+        answerChosen.addClass("word-options");
+        answerChosen.attr("value", answer);
     }
 
     //Function for the answer that's clicked on, checks answer
     function checkAnswer() {
-        $(".answer-choice").on("click", function () {
-            chosenAnswerDefinition = $(this).attr("value");
-            if (chosenAnswerDefinition === choice.answerDef) {
+        $(".word-options").on("click", function () {
+            wordOptions = $(this).attr("value");
+            answerChosen = $(this).attr("value");
+            console.log("answer chosen" + answerChosen);
+            console.log("answer" + answer);
+            if (answerChosen === answer) {
                 alert("You got it right");
                 i = choice.answerDef
                 updateScore(i);
                 $("#answer-block").empty();
-                for (var j = 0; j < choice.synonymOptions.length; j++) {
-                    $("#question-block").html("Choose the synonym of '" + i + "'");
-                    userChoiceSynonym = $("<button>");
-                    userChoiceSynonym.addClass("synonym-choice");
-                    userChoiceSynonym.html(choice.synonymOptions[j]);
-                    userChoiceSynonym.attr("value", choice.synonymOptions[j]);
-                    $("#answer-block").append(userChoiceSynonym);
+                nextWord();
                 }
-            }
-            else {
-                alert("wrong");
+                else{
+                    alert("you got it wrong");
                 nextWord();
             }
-            checkSynonym();
-        });
+            });
     }
+    
 
     //Populates Player Scores Page
     function updateScore(i) {
