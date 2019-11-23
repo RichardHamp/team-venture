@@ -2,7 +2,7 @@
 
 ## About
 
-![picture](../team-venture/firstPage.jpg)
+![image](firstPage.jpg)
 
 This is our Project-1! Our application is a word-play game that helps users expand their vocabulary or test their knowledge on the definitions of words.
 
