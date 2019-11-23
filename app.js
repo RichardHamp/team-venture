@@ -11,7 +11,7 @@ window.onclick = function(event) {
 }
 
 //Global Variable
-const WORDS_API = "R9UWHK8F";
+const WORDS_API = "AXZLCTJ9";
 
 //Global Variables
 var word;
@@ -71,7 +71,7 @@ function LoadRandomWords() {
     wordOptions=""; 
     for (var i = 0; i < 1; i++) {
         $.ajax({
-            url: "https://random-word-api.herokuapp.com/word?key=R9UWHK8F&number=100",
+            url: "https://random-word-api.herokuapp.com/word?key=AXZLCTJ9&number=100",
             method: "GET",
         }).then(function (response) {
             console.log("WORDSAPI", response);
