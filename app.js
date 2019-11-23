@@ -48,7 +48,7 @@ window.onbeforeunload = function (e) {
 
 // Hides all divs
 function hideAll() {
-    $("#navBarDiv, #highScoresDiv, .score, #gameDiv, #playerWordsDiv, #authentication, #question-block, #answer-block, #startButton, .submit").hide();
+    $("#navBarDiv, .score, #gameDiv, #playerWordsDiv, #authentication, #question-block, #answer-block, #startButton, .submit").hide();
 } hideAll();
 
 // Your web app's Firebase configuration>
@@ -92,22 +92,24 @@ function LoadRandomWords() {
     }
 }
 
+//Future Use Code
+
 //Populates User Scores
-var ref = database.ref('users');
-ref.on('value', gotData);
-function gotData(data) {
-    var scores = data.val();
-    var keys = Object.keys(scores);
-    for (var i = 0; i < keys.length; i++) {
-        var k = keys[i];
-        var initials = scores[k].email;
-        var score = scores[k].score;
-        var li = document.createElement('li');
-        var newContent = document.createTextNode(initials + ': ' + score);
-        li.appendChild(newContent);
-        $("#scorelist").prepend(li);
-    }
-}
+// var ref = database.ref('users');
+// ref.on('value', gotData);
+// function gotData(data) {
+//     var scores = data.val();
+//     var keys = Object.keys(scores);
+//     for (var i = 0; i < keys.length; i++) {
+//         var k = keys[i];
+//         var initials = scores[k].email;
+//         var score = scores[k].score;
+//         var li = document.createElement('li');
+//         var newContent = document.createTextNode(initials + ': ' + score);
+//         li.appendChild(newContent);
+//         $("#scorelist").prepend(li);
+//     }
+// }
 
 //Gameplay
 $(document).ready(function () {
@@ -141,9 +143,6 @@ $(document).ready(function () {
             console.log(runningScore)
             return (name);
         } else {
-
-                
-
             $("#authentication").show();
         }
     })
@@ -198,10 +197,6 @@ $(document).ready(function () {
     $(".yourWords").on("click", function () {
         hideAll();
         $("#playerWordsDiv, #navBarDiv, #wordsDivContainer, .score").show();
-    })
-    $(".highScore").on("click", function () {
-        hideAll();
-        $("#highScoresDiv, #navBarDiv").show();
     })
 
     //Word Lists
@@ -260,21 +255,23 @@ $(document).ready(function () {
                 nextWord();
             }
             });
-             
-        k = firebase.database().ref('users/' + name + '/words');
-        k.on('value', function (snapshot) {
-            wArray = snapshot.val();
-            console.log(i);
-            console.log(wArray);
-            wordArray = [i,wArray];
-            console.log(wordArray)
+    
+            //Future Use Code
+
+        // k = firebase.database().ref('users/' + name + '/words');
+        // k.on('value', function (snapshot) {
+        //     wArray = snapshot.val();
+        //     console.log(i);
+        //     console.log(wArray);
+        //     wordArray = [i,wArray];
+        //     console.log(wordArray)
             // database.ref('users/' + name).update({
             //     words: wordArray,
             // }); 
-        });
+        // });
     }
     
-    //Populates Player Scores Page
+    //Populates Player Stats Page
     function updateScore(i) {
         currentScore++;
         $(".words").append("<tr><td>" + "</td><td>" + i + "</td></tr>");
