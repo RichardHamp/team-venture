@@ -13,7 +13,7 @@ Results: Using the Words API and Meriam Webster API, users receive a randomly ge
 Challenges: Our initial challenge was how to utilize our chosen API’s to generate a random word list for us to pull from. We first decided to use the Meriam Webster API, but later realized we could use the Words API to generate our random word array and could then utilize the Meriam Webster API to include the word definitions. We also faced numerous challenges using our Github repo - specifically, the best practices for how to push/pull without creating conflicts or breaking the working code we had.
 
 ## Demo
-Here is the link to our project --> LINK GOES HERE
+Here is the link to our project --> https://fozzie77.github.io/team-venture/
 
 ## Build Tools
 1. HTML
@@ -26,4 +26,5 @@ Here is the link to our project --> LINK GOES HERE
 8. APIs
 9. JSON
 
-
+## Team Members
+Nathaniel Anderson, Richard Hamp, Brittany Huber, Bailee Manzer
