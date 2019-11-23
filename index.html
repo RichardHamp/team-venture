@@ -28,7 +28,7 @@
   <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
 </head>
 
-<body style="background: url(../team-venture/fakeNebula.jpg)">
+<body style="background: url(fakeNebula.jpg)">
   <!--This is the navbar-->
   <!--You are in the navBarDiv-->
   <div id="navBarDiv">
@@ -62,11 +62,12 @@
 
   <!--You are in the gameDiv-->
   <div id="gameDiv">
+      <h1 id="sTitle"><strong></strong></h1>
     <div class="jumbotron jumbotron-fluid" style="background: #33ABF9" id="homePageJumbotron">
       <div class="container">
+          <h1 class="score"><strong>Current Score: 0</strong></h1>
         <button type="button" id="startButton" class="btn btn-outline-light start"><strong>START</strong></button>
         <div id="question-block">
- 
         </div>
         <div id="answer-block">
           <div class="row">
@@ -84,7 +85,7 @@
   <div id="playerWordsDiv">
     <div class="jumbotron jumbotron-fluid" style="background: #33ABF9">
     <div class="container" id="wordsDivContainer">
-        <h1 id="scoreTitle"><strong>Score Goes Here</strong></h1>
+        <h1 class="score"><strong>Current Score: 0</strong></h1>
       </div>
     </div>
     </div>

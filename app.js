@@ -126,6 +126,7 @@ $(document).ready(function () {
             });
             return (name);
         } else {
+                modal.style.display = "block";
             $("#authentication").show();
         }
     })
@@ -247,7 +248,7 @@ $(document).ready(function () {
     function updateScore(i) {
         currentScore++;
         $(".words").append("<tr><td>" + "</td><td>" + i + "</td></tr>");
-        $(".score").text(currentScore);
+        $(".score").text("Current Score: " + currentScore);
     }
 
     //Function to move to the next word
