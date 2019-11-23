@@ -11,7 +11,7 @@ window.onclick = function(event) {
 }
 
 //Global Variable
-const WORDS_API = "VGGWWD0A";
+const WORDS_API = "R9UWHK8F";
 
 //Global Variables
 var word;
@@ -71,7 +71,7 @@ function LoadRandomWords() {
     wordOptions=""; 
     for (var i = 0; i < 1; i++) {
         $.ajax({
-            url: "https://random-word-api.herokuapp.com/word?key=VGGWWD0A&number=100",
+            url: "https://random-word-api.herokuapp.com/word?key=R9UWHK8F&number=100",
             method: "GET",
         }).then(function (response) {
             console.log("WORDSAPI", response);
@@ -105,7 +105,7 @@ function gotData(data) {
         var li = document.createElement('li');
         var newContent = document.createTextNode(initials + ': ' + score);
         li.appendChild(newContent);
-        $("#scorelist").append(li);
+        $("#scorelist").prepend(li);
     }
 }
 
@@ -136,6 +136,9 @@ $(document).ready(function () {
             scoreAdd.on('value', function (snapshot) {
                 runningScore = snapshot.val();
             });
+            $("#playerId").text("Player Name: " + name);
+            $(".totalScore").text("Total Score: " + runningScore);
+            console.log(runningScore)
             return (name);
         } else {
 
@@ -194,7 +197,7 @@ $(document).ready(function () {
     })
     $(".yourWords").on("click", function () {
         hideAll();
-        $("#playerWordsDiv, #navBarDiv").show();
+        $("#playerWordsDiv, #navBarDiv, #wordsDivContainer, .score").show();
     })
     $(".highScore").on("click", function () {
         hideAll();
@@ -257,6 +260,18 @@ $(document).ready(function () {
                 nextWord();
             }
             });
+             
+        k = firebase.database().ref('users/' + name + '/words');
+        k.on('value', function (snapshot) {
+            wArray = snapshot.val();
+            console.log(i);
+            console.log(wArray);
+            wordArray = [i,wArray];
+            console.log(wordArray)
+            // database.ref('users/' + name).update({
+            //     words: wordArray,
+            // }); 
+        });
     }
     
     //Populates Player Scores Page

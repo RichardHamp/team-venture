@@ -46,7 +46,7 @@
                 class="sr-only">(current)</span></button>
           </lic>
           <li class="nav-item">
-            <button type="button" class="btn btn-outline-light yourWords">Your Words</button>
+            <button type="button" class="btn btn-outline-light yourWords">Player Stats</button>
           </li>
           <li class="nav-item">
             <button type="button" class="btn btn-outline-light highScore">Player Scores</button>
@@ -81,18 +81,22 @@
     </div>
 
   <!-- Player Score Div -->
-  <!--You are in the Player Score Div-->
   <div id="playerWordsDiv">
     <div class="jumbotron jumbotron-fluid" style="background: #33ABF9">
     <div class="container" id="wordsDivContainer">
-        <h1 class="score"><strong>Current Score: 0</strong></h1>
+      <div class= "container" id="playerCont">
+      </div><h4 id="playerId"></h4>
+      <h4 class="score">Current Score: 0</h4>
+      <h4 class="totalScore"></h4>
+    </div>
+        <h4>Words Guessed Correctly</h4>
+        <p class="words"></p>
       </div>
     </div>
     </div>
   </div>
 
   <!-- Top Scores Div -->
-  <!--You are in the Top Scores Div-->
   <div id="highScoresDiv">
     <div class="jumbotron jumbotron-fluid" style="background: #33ABF9">
     <div class="container">
