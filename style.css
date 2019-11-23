@@ -4,6 +4,16 @@
     font-style: italic;
 }
 
+body {
+    background: url("nebula.jpg");
+}
+
+#expand {
+     color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+}
+
 h1 {
     color: white;
     font-size: 30px;

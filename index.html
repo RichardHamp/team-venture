@@ -28,9 +28,7 @@
   <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
 </head>
 
-<body style="background: url(nebula.jpg)">
-  <!--This is the navbar-->
-  <!--You are in the navBarDiv-->
+  <!--Navbar-->
   <div id="navBarDiv">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <a class="navbar-brand" href="#"><strong>DEXICON</strong></a>
@@ -42,14 +40,11 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <button type="button" class="btn btn-outline-light homeButton">Home<span
+            <button type="button" class="btn btn-outline-light homeButton">Game<span
                 class="sr-only">(current)</span></button>
           </lic>
           <li class="nav-item">
             <button type="button" class="btn btn-outline-light yourWords">Player Stats</button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="btn btn-outline-light highScore">Player Scores</button>
           </li>
           <li class="nav-item">
             <button type="button" id="btnLogOut" class="btn btn-outline-light">Log Out</button>
@@ -58,9 +53,8 @@
       </div>
     </nav>
   </div>
-  <!--Game goes here-->
 
-  <!--You are in the gameDiv-->
+  <!--GameDiv-->
   <div id="gameDiv">
       <h1 id="sTitle"><strong></strong></h1>
     <div class="jumbotron jumbotron-fluid" style="background: #33ABF9" id="homePageJumbotron">
@@ -89,22 +83,9 @@
       <h4 class="score">Current Score: 0</h4>
       <h4 class="totalScore"></h4>
     </div>
-        <h4>Words Guessed Correctly</h4>
+        <h4>Words Guessed Correctly This Session</h4>
         <p class="words"></p>
       </div>
-    </div>
-    </div>
-  </div>
-
-  <!-- Top Scores Div -->
-  <div id="highScoresDiv">
-    <div class="jumbotron jumbotron-fluid" style="background: #33ABF9">
-    <div class="container">
-    <table class="table">
-      <h4>Player: Score</h4>
-      <tbody id="scorelist">
-      </tbody>
-    </table>
     </div>
     </div>
   </div>
@@ -112,9 +93,9 @@
   <!--Login Div -->
   <div id="authentication">
     <div class="jumbotron jumbotron-fluid" style="background: url(../team-venture/stars5.jpg)">
-      
     <div class="container" id="logInContainer">
       <h1><strong>DEXICON</strong></h1>
+      <h3 id="expand">Expand Your Vocabulary</h3>
       <p id="signInText">Sign up or log in to start playing.</p>
     <div id="app">
       <input type="email" id="txtEmail" placeholder="Enter email" /> <br />
@@ -127,9 +108,7 @@
   </div>
   </div>
 
-  <!-- Trigger/Open The Modal -->
-
-<!-- The Modal -->
+ <!-- The Modal -->
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
