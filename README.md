@@ -23,6 +23,7 @@ Here is the link to our project --> LINK GOES HERE
 6. Firebase
 7. Firebase Authentication
 8. APIs
+9. JSON
 
 ## Contributors
 Nathaniel Anderson, Brittany Huber, Richard Hamp and Bailee Manzer
