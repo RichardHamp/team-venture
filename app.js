@@ -126,6 +126,7 @@ $(document).ready(function () {
             });
             return (name);
         } else {
+                modal.style.display = "block";
             $("#authentication").show();
         }
     })
