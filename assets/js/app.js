@@ -58,14 +58,22 @@ var database = firebase.database();
 
 //Creates an Array of 100 Random Words
 function LoadRandomWords() {
+    wordOptions="";
+        // answerChosen="";
+        // wordDefinition="";
+        // answer="";
+        // i='';
+        // word="";
+        // answerArray=[];  
     for (var i = 0; i < 1; i++) {
         $.ajax({
             url: "https://random-word-api.herokuapp.com/word?key=VGGWWD0A&number=100",
             method: "GET",
         }).then(function (response) {
-            var word1 = (response[Math.floor(Math.random() * response.length)]);
+            console.log("WORDSAPI", response);
             for (i = 0; i < 5; i++) {
-                word = (response[Math.floor(Math.random() * response.length)]);
+                j = [Math.floor(Math.random() * response.length)];
+                word = response[j]
                 answerArray.push(word);
             }
             word = response[Math.floor(Math.random() * response.length)];
@@ -198,6 +206,8 @@ $(document).ready(function () {
         }).then(function (response) {
             test = response[0];
             var wordDefinition = test.shortdef[0];
+            console.log(test);
+            console.log(wordDefinition);
             $("#question-block").text('Definition: "' + wordDefinition + '"');
         })
             .catch(function (err) {
@@ -221,6 +231,7 @@ $(document).ready(function () {
         answerChosen = $("#button" + j).text(answer)
         answerChosen.addClass("word-options");
         answerChosen.attr("value", answer);
+        answerArray=[];  
     }
 
     //Function for the answer that's clicked on, checks answer
@@ -232,7 +243,7 @@ $(document).ready(function () {
             console.log("answer" + answer);
             if (answerChosen === answer) {
                 alert("You got it right");
-                i = choice.answerDef
+                i = answer;
                 updateScore(i);
                 $("#answer-block").empty();
                 nextWord();
@@ -244,7 +255,6 @@ $(document).ready(function () {
             });
     }
     
-
     //Populates Player Scores Page
     function updateScore(i) {
         currentScore++;
@@ -256,7 +266,53 @@ $(document).ready(function () {
     function nextWord() {
         $("#answer-block").empty();
         $("#answer-response").empty();
+        QueryWord(GetRandomWord(randomWordList));
+        LoadRandomWords();
         buttonCreation();
         checkAnswer();
     }
 })
+
+    //Checking synonym answer
+    function checkSynonym() {
+        $(".synonym-choice").on("click", function () {
+            userChoiceSynonym = $(this).attr("value");
+            if (userChoiceSynonym === choice.answerSyn) {
+                i = userChoiceSynonym;
+                alert("Correct");
+                updateScore(i);
+                nextWord();
+            }
+            else {
+                alert("wrong");
+                nextWord();
+            }
+        })
+    }
+
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
