@@ -7,34 +7,37 @@ var currentScore = 0;
 var name = "";
 var userChoiceSynonym = "";
 var answerArray = [];
-var answer =""
+var answer = ""
 var choice;
 var API_usage = JSON.parse(sessionStorage.getItem("wordsAPI")) || { [moment().format("MM/DD")]: 0 };
 var randomWordList = JSON.parse(sessionStorage.getItem("wordList")) || [];
-console.log("this is randomWordList " + randomWordList);
 
 //Updates Firebase score
 function addScores() {
     i = runningScore + currentScore;
     database.ref('users/' + name).update({
-    score: i,
+        score: i,
     });
+}
+
+//Clears variables
+function wipe() {
+    name = "";
+    currentScore = 0;
+    answerArray = "";
 }
 
 //Function fires on page refresh to clear user login
 window.onbeforeunload = function (e) {
     addScores();
     firebase.auth().signOut();
-    name = "";
-    currentScore = 0;
-    answerArray = "";
+    wipe();
 }
 
 // Hides all divs
 function hideAll() {
     $("#navBarDiv, #highScoresDiv, .score, #gameDiv, #playerWordsDiv, #authentication, #question-block, #answer-block, #startButton, .submit").hide();
-}
-hideAll();
+} hideAll();
 
 // Your web app's Firebase configuration>
 var firebaseConfig = {
@@ -58,13 +61,11 @@ function LoadRandomWords() {
             url: "https://random-word-api.herokuapp.com/word?key=VGGWWD0A&number=100",
             method: "GET",
         }).then(function (response) {
-            console.log("WORDSAPI", response);
             var word1 = (response[Math.floor(Math.random() * response.length)]);
-            for (i = 0; i<5; i++) {
+            for (i = 0; i < 5; i++) {
                 word = (response[Math.floor(Math.random() * response.length)]);
                 answerArray.push(word);
-                console.log(answerArray);}
-
+            }
             word = response[Math.floor(Math.random() * response.length)];
             if (!randomWordList.includes(word)) {
                 randomWordList.push(word);
@@ -73,18 +74,16 @@ function LoadRandomWords() {
                 sessionStorage.setItem("wordList", JSON.stringify(randomWordList));
             }
         }
-    )
-    }}
-    
+        )
+    }
+}
 
 //Populates User Scores
 var ref = database.ref('users');
 ref.on('value', gotData);
-
 function gotData(data) {
     var scores = data.val();
     var keys = Object.keys(scores);
-    console.log(scores)
     for (var i = 0; i < keys.length; i++) {
         var k = keys[i];
         var initials = scores[k].email;
@@ -117,15 +116,13 @@ $(document).ready(function () {
             userId = user.uid;
             umail = (user.email)
             name = umail.substring(0, umail.lastIndexOf("."));
-            console.log(name);
             $("#navBarDiv, #gameDiv, #startButton").show();
             $("#authentication").hide();
             scoreAdd = firebase.database().ref('users/' + name + '/score');
-    scoreAdd.on('value', function(snapshot) {
-        runningScore= snapshot.val();
-        console.log(runningScore);
-      });
-            return(name);
+            scoreAdd.on('value', function (snapshot) {
+                runningScore = snapshot.val();
+            });
+            return (name);
         } else {
             $("#authentication").show();
         }
@@ -139,21 +136,16 @@ $(document).ready(function () {
         const email = document.getElementById("txtEmail").value;
         const pass = document.getElementById("txtPassword").value;
         name = email.substring(0, email.lastIndexOf("."));
-        console.log(name)
         database.ref('users/' + name).set({
             email: email,
             score: 0,
             words: "placeholder",
             dateAdded: firebase.database.ServerValue.TIMESTAMP,
         });
-
-
         firebase.auth().createUserWithEmailAndPassword(email, pass).catch(function (error) {
             console.log(error.message);
         });
-        console.log(email);
     })
-
 
     //Start Game Function
     $(".start").on('click', StartGame);
@@ -165,25 +157,25 @@ $(document).ready(function () {
         nextWord();
     }
 
+    //Randomizing Correct Word
     function GetRandomWord(arr) {
         return arr[Math.floor(Math.random() * arr.length)]
     }
-    
+
+    //Word Lists
     function QueryWord(word) {
-        console.log("QueryWord", word)
         answer = word;
         var queryUrlDictionary = "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" + word + "?key=ce96d9e4-de5d-4795-8723-7c3340d395de";
         var queryUrlThesaurus = "https://words.bighugelabs.com/api/2/9670eec22c87195e1d58c8571bc3859c/" + word + "/json";
+
         //Dictionary API
         $.ajax({
             url: queryUrlDictionary,
             method: "GET"
         }).then(function (response) {
-            console.log(response);
             test = response[0];
             var wordDefinition = test.shortdef[0];
-            console.log(wordDefinition);
-            $("#question-block").text('Definition: "'+ wordDefinition + '"');
+            $("#question-block").text('Definition: "' + wordDefinition + '"');
         })
             .catch(function (err) {
                 console.log("DICTIONARY ERROR")
@@ -224,9 +216,7 @@ $(document).ready(function () {
         addScores();
         firebase.auth().signOut();
         hideAll();
-        name = "";
-        currentScore = 0;
-        answerArray = "";
+        wipe()
         $("#authentication").show();
     })
     $(".homeButton").on("click", function () {
@@ -243,24 +233,20 @@ $(document).ready(function () {
     })
 
     //Game play function
-    function displayDefinition() {
-        console.log("this is word" + (GetRandomWord(randomWordList)));
-
-            for(var i = 0; i < 5; i++){
-                if(i < 5){
-                console.log("1");
+    function buttonCreation() {
+        for (var i = 0; i < 5; i++) {
+            if (i < 5) {
                 wordOptions = $("<button>");
                 wordOptions.addClass("word-options");
                 wordOptions.html(answerArray[i]);
                 wordOptions.attr("value", wordOptions);
                 wordOptions.attr("id", "button" + i);
                 $("#answer-block").append(wordOptions);
-            }}
-            j = (Math.floor(Math.random() * 5));
-            console.log(j)
-            $("#button" + j).text(answer);
+            }
         }
-    
+        j = (Math.floor(Math.random() * 5));
+        $("#button" + j).text(answer);
+    }
 
     //Function for the answer that's clicked on, checks answer
     function checkAnswer() {
@@ -269,7 +255,6 @@ $(document).ready(function () {
             if (chosenAnswerDefinition === choice.answerDef) {
                 alert("You got it right");
                 i = choice.answerDef
-                console.log(choice.answerDef)
                 updateScore(i);
                 $("#answer-block").empty();
                 for (var j = 0; j < choice.synonymOptions.length; j++) {
@@ -289,23 +274,22 @@ $(document).ready(function () {
         });
     }
 
-    // console.log(word);
+    //Populates Player Scores Page
     function updateScore(i) {
         currentScore++;
-        console.log(i)
         $(".words").append("<tr><td>" + "</td><td>" + i + "</td></tr>");
         $(".score").text(currentScore);
-        console.log(currentScore);
     }
 
     //Function to move to the next word
     function nextWord() {
         $("#answer-block").empty();
         $("#answer-response").empty();
-        displayDefinition();
+        buttonCreation();
         checkAnswer();
     }
-    //To check the answer for the synonym
+
+    //Checking synonym answer
     function checkSynonym() {
         $(".synonym-choice").on("click", function () {
             userChoiceSynonym = $(this).attr("value");
@@ -321,13 +305,4 @@ $(document).ready(function () {
             }
         })
     }
-
-    $("#testButton").on("click", function () {
-        updateScore();
-        console.log(currentScore);
-        console.log(name)
-        console.log(answerArray)
-        console.log(word);
-        console.log(answer);
-    });
 })
