@@ -1,5 +1,19 @@
+//Global Variable
 const WORDS_API = "VGGWWD0A";
 
+//Global Variables
+var word;
+var currentScore = 0;
+var name = "";
+var userChoiceSynonym = "";
+var answerArray = [];
+var answer =""
+var choice;
+var API_usage = JSON.parse(sessionStorage.getItem("wordsAPI")) || { [moment().format("MM/DD")]: 0 };
+var randomWordList = JSON.parse(sessionStorage.getItem("wordList")) || [];
+console.log("this is randomWordList " + randomWordList);
+
+//Updates Firebase score
 function addScores() {
     i = runningScore + currentScore;
     database.ref('users/' + name).update({
@@ -7,37 +21,20 @@ function addScores() {
     });
 }
 
+//Function fires on page refresh to clear user login
 window.onbeforeunload = function (e) {
     addScores();
     firebase.auth().signOut();
     name = "";
     currentScore = 0;
+    answerArray = "";
 }
 
-//Define variables
-var words = [
-    {
-        definition: "a carnivorous mammal (Felis catus) long domesticated as a pet and for catching rats and mice",
-        //wordOptions: ["dog", "cat", "kangaroo", "rooster", "koala"],
-        answerDef: "cat",
-        synonymOptions: ["kitten", "monkey", "zubat", "person", "giraffe"],
-        answerSyn: "kitten"
-    },
-    {
-        definition: "having a delicious taste or smell",
-        wordOptions: ["luscious", "meaty", "rabid", "sporty", "posh"],
-        answerDef: "luscious",
-        synonymOptions: ["squiggle", "yummy", "surf", "school", "banana"],
-        answerSyn: "yummy"
-    },
-    {
-        definition: "a deep-bowled long-handled spoon used especially for dipping up and conveying liquids",
-        wordOptions: ["spatula", "noodle", "bear", "ladle", "brain"],
-        answerDef: "ladle",
-        synonymOptions: ["fork", "spork", "spoon", "forest", "sky"],
-        answerSyn: "spoon"
-    }
-];
+// Hides all divs
+function hideAll() {
+    $("#navBarDiv, #highScoresDiv, .score, #gameDiv, #playerWordsDiv, #authentication, #question-block, #answer-block, #startButton, .submit").hide();
+}
+hideAll();
 
 // Your web app's Firebase configuration>
 var firebaseConfig = {
@@ -54,57 +51,52 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
-// Creates hideAll function
-function hideAll() {
-    $("#navBarDiv, #highScoresDiv, .score, #gameDiv, #playerWordsDiv, #authentication, #question-block, #answer-block, #startButton, .submit").hide();
-}
-
-hideAll();
-
-//Global Variables
-var currentUser = "";
-var wordDefinition = "";
-var word;
-var correctWord = "";
-var incorrectWords = [];
-var correctSynonym = "";
-var incorrectSynonyms = [];
-var currentScore = 0;
-var name = "";
-var userChoiceDefinition = "";
-var userChoiceSynonym = "";
-var wordOptions;
-var list;
-var choice;
-var API_usage = JSON.parse(sessionStorage.getItem("wordsAPI")) || { [moment().format("MM/DD")]: 0 };
-var randomWordList = JSON.parse(sessionStorage.getItem("wordList")) || [];
-console.log("this is randomWordList " + randomWordList);
-
-
 //Creates an Array of 100 Random Words
 function LoadRandomWords() {
-    console.log("USING WORDS_API!")
     for (var i = 0; i < 1; i++) {
         $.ajax({
-
             url: "https://random-word-api.herokuapp.com/word?key=VGGWWD0A&number=100",
             method: "GET",
-            
-            
         }).then(function (response) {
-            console.log("WORDSAPI", response)
+            console.log("WORDSAPI", response);
+            var word1 = (response[Math.floor(Math.random() * response.length)]);
+            for (i = 0; i<5; i++) {
+                word = (response[Math.floor(Math.random() * response.length)]);
+                answerArray.push(word);
+                console.log(answerArray);}
+
             word = response[Math.floor(Math.random() * response.length)];
             if (!randomWordList.includes(word)) {
                 randomWordList.push(word);
-                
                 API_usage[moment().format("MM/DD")]++;
                 sessionStorage.setItem("wordsAPI", JSON.stringify(API_usage));
                 sessionStorage.setItem("wordList", JSON.stringify(randomWordList));
             }
-        })
+        }
+    )
+    }}
+    
+
+//Populates User Scores
+var ref = database.ref('users');
+ref.on('value', gotData);
+
+function gotData(data) {
+    var scores = data.val();
+    var keys = Object.keys(scores);
+    console.log(scores)
+    for (var i = 0; i < keys.length; i++) {
+        var k = keys[i];
+        var initials = scores[k].email;
+        var score = scores[k].score;
+        var li = document.createElement('li');
+        var newContent = document.createTextNode(initials + ': ' + score);
+        li.appendChild(newContent);
+        $("#scorelist").append(li);
     }
 }
 
+//Gameplay
 $(document).ready(function () {
     var count = API_usage[moment().format("MM/DD")];
     if (count < 2000 && randomWordList.length < 100) {
@@ -179,6 +171,7 @@ $(document).ready(function () {
     
     function QueryWord(word) {
         console.log("QueryWord", word)
+        answer = word;
         var queryUrlDictionary = "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" + word + "?key=ce96d9e4-de5d-4795-8723-7c3340d395de";
         var queryUrlThesaurus = "https://words.bighugelabs.com/api/2/9670eec22c87195e1d58c8571bc3859c/" + word + "/json";
         //Dictionary API
@@ -188,7 +181,7 @@ $(document).ready(function () {
         }).then(function (response) {
             console.log(response);
             test = response[0];
-            wordDefinition = test.shortdef[0];
+            var wordDefinition = test.shortdef[0];
             console.log(wordDefinition);
             $("#question-block").text('Definition: "'+ wordDefinition + '"');
         })
@@ -233,6 +226,7 @@ $(document).ready(function () {
         hideAll();
         name = "";
         currentScore = 0;
+        answerArray = "";
         $("#authentication").show();
     })
     $(".homeButton").on("click", function () {
@@ -252,32 +246,19 @@ $(document).ready(function () {
     function displayDefinition() {
         console.log("this is word" + (GetRandomWord(randomWordList)));
 
-
-        //definition goes here
-
-        
-        // console.log("word " + QueryWord(word));
-        // $("#question-block").text("test " + word);
-        // for (var i = 0; i < randomWordList.length; i++) {
-        //     //Create a button for the correct answer
-        //     if(i < 1){
-        //     userChoiceDefinition = $("<button>");
-        //     userChoiceDefinition.addClass("answer-choice");
-        //     //Update html with the word options to choose from
-        //     userChoiceDefinition.html(word);    
-        //     userChoiceDefinition.attr("value", word);
-        //     $("#answer-block").append(userChoiceDefinition);
-        //     console.log(userChoiceDefinition);
-        // }}
             for(var i = 0; i < 5; i++){
                 if(i < 5){
                 console.log("1");
                 wordOptions = $("<button>");
                 wordOptions.addClass("word-options");
-                wordOptions.html(GetRandomWord(randomWordList))
+                wordOptions.html(answerArray[i]);
                 wordOptions.attr("value", wordOptions);
+                wordOptions.attr("id", "button" + i);
                 $("#answer-block").append(wordOptions);
             }}
+            j = (Math.floor(Math.random() * 5));
+            console.log(j)
+            $("#button" + j).text(answer);
         }
     
 
@@ -345,44 +326,8 @@ $(document).ready(function () {
         updateScore();
         console.log(currentScore);
         console.log(name)
+        console.log(answerArray)
+        console.log(word);
+        console.log(answer);
     });
 })
-
-//Populates User Scores
-var ref = database.ref('users');
-ref.on('value', gotData, errData);
-
-function gotData(data) {
-    var scores = data.val();
-    var keys = Object.keys(scores);
-    console.log(scores)
-    for (var i = 0; i < keys.length; i++) {
-        var k = keys[i];
-        var initials = scores[k].email;
-        var score = scores[k].score;
-        var li = document.createElement('li');
-        var newContent = document.createTextNode(initials + ': ' + score);
-        li.appendChild(newContent);
-        $("#scorelist").append(li);
-    }
-}
-
-// firebase.auth().onAuthStateChanged(function(user) {
-//     if (user) {
-//         console.log(name);
-//     scoreAdd = firebase.database().ref('users/' + 'a@a' + '/score');
-//     scoreAdd.on('value', function(snapshot) {
-//         runningScore= snapshot.val();
-//         console.log(runningScore);
-//       });
-// } 
-
-// else {
-//     console.log("I'm in the login");
-//   }
-// });
-
-function errData(err) {
-    console.log("error")
-    console.log(err)
-}
