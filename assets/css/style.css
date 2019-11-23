@@ -11,6 +11,7 @@ h1 {
 .jumbotron {
     margin: 75px 50px 100px 50px;
     text-align: center;
+    background-image: url(../images/stars5.jpg);
 }
 
 #btnLogin {

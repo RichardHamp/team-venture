@@ -162,55 +162,6 @@ $(document).ready(function () {
         return arr[Math.floor(Math.random() * arr.length)]
     }
 
-    //Word Lists
-    function QueryWord(word) {
-        answer = word;
-        var queryUrlDictionary = "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" + word + "?key=ce96d9e4-de5d-4795-8723-7c3340d395de";
-        var queryUrlThesaurus = "https://words.bighugelabs.com/api/2/9670eec22c87195e1d58c8571bc3859c/" + word + "/json";
-
-        //Dictionary API
-        $.ajax({
-            url: queryUrlDictionary,
-            method: "GET"
-        }).then(function (response) {
-            test = response[0];
-            var wordDefinition = test.shortdef[0];
-            $("#question-block").text('Definition: "' + wordDefinition + '"');
-        })
-            .catch(function (err) {
-                console.log("DICTIONARY ERROR")
-            });
-
-        //Thesaurus API
-        //    $.ajax({
-        //      url: queryUrlThesaurus,
-        //      method: "GET"
-        //    }).then(function (response) {
-        //      console.log(JSON.parse(response));
-        //    })
-        //      .catch(function (err) {
-        //        console.log("Thesauras ERROR")
-        //      });
-    }
-
-
-    //Sign Up--pushes user information to Firebase database
-    document.getElementById("btnSignUp").addEventListener('click', e => {
-        const email = document.getElementById("txtEmail").value;
-        const pass = document.getElementById("txtPassword").value;
-        firebase.auth().createUserWithEmailAndPassword(email, pass).catch(function (error) {
-            console.log(error.message);
-        });
-    })
-
-    //Log in--checks user information against Firebase database
-    document.getElementById("btnLogin").addEventListener('click', e => {
-        const email = document.getElementById("txtEmail").value;
-        const pass = document.getElementById("txtPassword").value;
-        const promise = firebase.auth().signInWithEmailAndPassword(email, pass);
-        promise.catch(e => { console.log(error.message) })
-    })
-
     //Navigation Buttons
     $("[id^=btnLogOut]").click(e => {
         addScores();
@@ -231,6 +182,26 @@ $(document).ready(function () {
         hideAll();
         $("#highScoresDiv, #navBarDiv").show();
     })
+
+    //Word Lists
+    function QueryWord(word) {
+        answer = word;
+        var queryUrlDictionary = "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" + word + "?key=ce96d9e4-de5d-4795-8723-7c3340d395de";
+        var queryUrlThesaurus = "https://words.bighugelabs.com/api/2/9670eec22c87195e1d58c8571bc3859c/" + word + "/json";
+
+        //Dictionary API
+        $.ajax({
+            url: queryUrlDictionary,
+            method: "GET"
+        }).then(function (response) {
+            test = response[0];
+            var wordDefinition = test.shortdef[0];
+            $("#question-block").text('Definition: "' + wordDefinition + '"');
+        })
+            .catch(function (err) {
+                console.log("DICTIONARY ERROR")
+            });
+    }
 
     //Game play function
     function buttonCreation() {
@@ -287,22 +258,5 @@ $(document).ready(function () {
         $("#answer-response").empty();
         buttonCreation();
         checkAnswer();
-    }
-
-    //Checking synonym answer
-    function checkSynonym() {
-        $(".synonym-choice").on("click", function () {
-            userChoiceSynonym = $(this).attr("value");
-            if (userChoiceSynonym === choice.answerSyn) {
-                i = userChoiceSynonym;
-                alert("Correct");
-                updateScore(i);
-                nextWord();
-            }
-            else {
-                alert("wrong");
-                nextWord();
-            }
-        })
     }
 })
