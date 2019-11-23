@@ -138,6 +138,9 @@ $(document).ready(function () {
             });
             return (name);
         } else {
+
+                
+
             $("#authentication").show();
         }
     })
